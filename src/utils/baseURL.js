@@ -1,5 +1,5 @@
 export const getBaseUrl = () => {
-    return 'http://localhost:5002';//رابط الباك اند بدل 5000
+    return 'https://erth-b.vercel.app';//رابط الباك اند بدل 5000
 }
 // export const getBaseUrl = () => {
 //     return 'https://genuine-b.vercel.app';//رابط الباك اند بدل 5000 رجع
