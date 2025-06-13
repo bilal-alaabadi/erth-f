@@ -34,8 +34,7 @@ const TrendingProducts = () => {
                 احدث المنتجات
             </h2>
             <p className="section__subheader text-lg text-gray-900 mb-12" dir='rtl'>
-                اكتشف أحدث الصيحات: رفع مستوى أناقتك مع مجموعتنا المختارة من منتجات موضة الرجاليه الرائجة.
-            </p>
+إرث من الذوق الرفيع يلتقي بلمسات عصرية ! تميّز بتشكيلتنا المختارة بعناية لأرقى المنتجات الرجالية.            </p>
 
             {/* Product Cards */}
             <div className="mt-12" dir='rtl'>

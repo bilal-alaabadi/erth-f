@@ -7,46 +7,29 @@ import SelectInput from '../addProduct/SelectInput';
 import UploadImage from '../addProduct/UploadImage';
 
 const categories = [
-  { label: 'الكل', value: 'الكل' },
-  { label: 'مصار', value: 'مصار' },
-  { label: 'كمه', value: 'كمه' },
-  { label: 'بوكسات الهدايا', value: 'بوكسات الهدايا' },
-  { label: 'عصي', value: 'عصي' },
-  { label: 'أقمشة', value: 'أقمشة' },
-  { label: 'نظارات', value: 'نظارات' },
-  { label: 'ساعات', value: 'ساعات' },
-  { label: 'خواتم', value: 'خواتم' },
-  { label: 'عطور', value: 'عطور' },
-  { label: 'أحذية', value: 'أحذية' },
-  { label: 'محافظ', value: 'محافظ' },
-  { label: 'أطقم', value: 'أطقم' },
+    { label: 'الكل', value: 'الكل' },
+    { label: 'مصار', value: 'مصار' },
+    { label: 'كمه', value: 'كمه' },
+    { label: 'بوكسات الهدايا', value: 'بوكسات الهدايا' },
+    { label: 'أقمشة', value: 'أقمشة' },
+    { label: 'غتر', value: 'غتر' },
+    // { label: 'بوكسات عروض', value: 'بوكسات عروض' },
+    { label: 'عود', value: 'عود' },
 ];
 
 const kumaTypes = [
-  { label: 'كمه خياطة اليد', value: 'كمه خياطة اليد' },
-  { label: 'كمه ديواني', value: 'كمه ديواني' }
+    { label: 'كمه خياطة اليد', value: 'كمه خياطة اليد' },
+    { label: 'كمه ديواني', value: 'كمه ديواني' }
 ];
 
 const kumaSizes = ['9.5', '9.75', '10', '10.25', '10.5', '10.75', '11', '11.25', '11.5', '11.75'];
 
-const massarTypes = {
-  smallPattern: {
-    label: 'مصار بالنقشة الصغيرة',
-    subTypes: [
-      { label: 'مصار باشمينا', value: 'مصار باشمينا صغيرة' },
-      { label: 'مصار سوبر تورمة', value: 'مصار سوبر تورمة صغيرة' },
-      { label: 'مصار نص تورمة', value: 'مصار نص تورمة صغيرة' }
-    ]
-  },
-  largePattern: {
-    label: 'مصار بالنقشة الكبيرة',
-    subTypes: [
-      { label: 'مصار باشمينا', value: 'مصار باشمينا كبيرة' },
-      { label: 'مصار سوبر تورمة', value: 'مصار سوبر تورمة كبيرة' },
-      { label: 'مصار نص تورمة', value: 'مصار نص تورمة كبيرة' }
-    ]
-  }
-};
+const massarSubTypes = [
+    { label: 'سوبر ترمه يد', value: 'سوبر ترمه يد' },
+    { label: 'سوبر ترمه قلمكاري', value: 'سوبر ترمه قلمكاري' },
+    { label: 'نص ترمه', value: 'نص ترمه' },
+    { label: 'بشمينا', value: 'بشمينا' }
+];
 
 const UpdateProduct = () => {
   const { id } = useParams();
@@ -56,7 +39,6 @@ const UpdateProduct = () => {
   const [product, setProduct] = useState({
     name: '',
     category: '',
-    massarPatternType: '',
     massarSubType: '',
     kumaType: '',
     kumaSize: '',
@@ -73,14 +55,12 @@ const UpdateProduct = () => {
     if (productData?.product) {
       const { name, category, subCategory, price, description, image } = productData.product;
       
-      let massarPatternType = '';
       let massarSubType = '';
       let kumaType = '';
       let kumaSize = '';
 
       if (category === 'مصار' && subCategory) {
         massarSubType = subCategory;
-        massarPatternType = subCategory.includes('صغيرة') ? 'مصار بالنقشة الصغيرة' : 'مصار بالنقشة الكبيرة';
       } else if (category === 'كمه' && subCategory) {
         if (subCategory.includes('-')) {
           const [type, size] = subCategory.split('-');
@@ -94,7 +74,6 @@ const UpdateProduct = () => {
       setProduct({
         name: name || '',
         category: category || '',
-        massarPatternType,
         massarSubType,
         kumaType,
         kumaSize,
@@ -110,14 +89,9 @@ const UpdateProduct = () => {
     const updates = { ...product, [name]: value };
 
     if (name === 'category') {
-      updates.massarPatternType = '';
       updates.massarSubType = '';
       updates.kumaType = '';
       updates.kumaSize = '';
-    }
-
-    if (name === 'massarPatternType') {
-      updates.massarSubType = '';
     }
 
     setProduct(updates);
@@ -135,14 +109,6 @@ const UpdateProduct = () => {
     setProduct({
       ...product,
       kumaSize: size
-    });
-  };
-
-  const handleMassarPatternChange = (patternType) => {
-    setProduct({
-      ...product,
-      massarPatternType: patternType,
-      massarSubType: ''
     });
   };
 
@@ -180,22 +146,30 @@ const UpdateProduct = () => {
       alert('الرجاء اختيار نوع الكمه');
       return;
     }
+
+    if (product.category === 'مصار' && !product.massarSubType) {
+      alert('الرجاء اختيار نوع المصار');
+      return;
+    }
   
     try {
       const productData = {
         name: product.name,
         category: product.category,
-        ...(product.category === 'مصار' && { subCategory: product.massarSubType }),
-        ...(product.category === 'كمه' && { 
-          subCategory: product.kumaSize ? `${product.kumaType}-${product.kumaSize}` : product.kumaType 
-        }),
         price: parseFloat(product.price),
         description: product.description,
         image: newImages.length > 0 ? newImages : product.image,
         author: user?._id
       };
+
+      // Add subCategory based on product category
+      if (product.category === 'مصار') {
+        productData.subCategory = product.massarSubType;
+      } else if (product.category === 'كمه') {
+        productData.subCategory = product.kumaSize ? `${product.kumaType}-${product.kumaSize}` : product.kumaType;
+      }
   
-      await updateProduct({ id, ...productData }).unwrap();
+      await updateProduct({ id, data: productData }).unwrap();
       alert('تم تحديث المنتج بنجاح');
       navigate("/dashboard/manage-products");
     } catch (error) {
@@ -237,51 +211,25 @@ const UpdateProduct = () => {
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 text-right mb-2">
-                نوع نقشة المصار *
+                نوع المصار *
               </label>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {Object.entries(massarTypes).map(([key, { label }]) => (
-                  <label key={key} className="flex items-center space-x-3 border rounded-lg p-4 cursor-pointer hover:bg-gray-50">
+                {massarSubTypes.map((subType) => (
+                  <label key={subType.value} className="flex items-center space-x-3 border rounded-lg p-4 cursor-pointer hover:bg-gray-50">
                     <input
                       type="radio"
-                      name="massarPatternType"
-                      value={label}
-                      checked={product.massarPatternType === label}
-                      onChange={() => handleMassarPatternChange(label)}
+                      name="massarSubType"
+                      value={subType.value}
+                      checked={product.massarSubType === subType.value}
+                      onChange={() => handleMassarSubTypeChange(subType.value)}
                       className="h-5 w-5 text-indigo-600"
                       required
                     />
-                    <span className="block text-sm font-medium text-gray-700">{label}</span>
+                    <span className="block text-sm font-medium text-gray-700">{subType.label}</span>
                   </label>
                 ))}
               </div>
             </div>
-            
-            {product.massarPatternType && (
-              <div>
-                <label className="block text-sm font-medium text-gray-700 text-right mb-2">
-                  النوع الفرعي *
-                </label>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                  {massarTypes[
-                    Object.keys(massarTypes).find(k => massarTypes[k].label === product.massarPatternType)
-                  ].subTypes.map((subType) => (
-                    <label key={subType.value} className="flex items-center space-x-3 border rounded-lg p-3 cursor-pointer hover:bg-gray-50">
-                      <input
-                        type="radio"
-                        name="massarSubType"
-                        value={subType.value}
-                        checked={product.massarSubType === subType.value}
-                        onChange={() => handleMassarSubTypeChange(subType.value)}
-                        className="h-5 w-5 text-indigo-600"
-                        required
-                      />
-                      <span className="block text-sm font-medium text-gray-700">{subType.label}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-            )}
           </div>
         )}
         

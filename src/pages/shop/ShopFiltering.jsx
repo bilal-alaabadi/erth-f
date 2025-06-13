@@ -2,26 +2,13 @@ import React from 'react';
 
 const ShopFiltering = ({ filters, filtersState, setFiltersState, clearFilters }) => {
     
-    const massarTypes = {
-        smallPattern: {
-            label: 'مصار بالنقشة الصغيرة',
-            value: 'صغيرة',
-            subTypes: [
-                { label: 'مصار باشمينا', value: 'مصار باشمينا صغيرة' },
-                { label: 'مصار سوبر تورمة', value: 'مصار سوبر تورمة صغيرة' },
-                { label: 'مصار نص تورمة', value: 'مصار نص تورمة صغيرة' }
-            ]
-        },
-        largePattern: {
-            label: 'مصار بالنقشة الكبيرة',
-            value: 'كبيرة',
-            subTypes: [
-                { label: 'مصار باشمينا', value: 'مصار باشمينا كبيرة' },
-                { label: 'مصار سوبر تورمة', value: 'مصار سوبر تورمة كبيرة' },
-                { label: 'مصار نص تورمة', value: 'مصار نص تورمة كبيرة' }
-            ]
-        }
-    };
+    const massarSubTypes = [
+        { label: 'سوبر ترمه يد', value: 'سوبر ترمه يد' },
+        { label: 'سوبر ترمه قلمكاري', value: 'سوبر ترمه قلمكاري' },
+        { label: 'نص ترمه', value: 'نص ترمه' },
+        { label: 'بشمينا', value: 'بشمينا' }
+    ];
+
     const kumaTypes = [
         { label: 'كمه خياطة اليد', value: 'كمه خياطة اليد' },
         { label: 'كمه ديواني', value: 'كمه ديواني' }
@@ -34,26 +21,16 @@ const ShopFiltering = ({ filters, filtersState, setFiltersState, clearFilters })
         setFiltersState({
             ...filtersState,
             category: newCategory,
-            massarPatternType: '',
             massarSubType: '',
             kumaType: '',
             kumaSize: '',
         });
     };
 
-    const handleMassarPatternChange = (patternType) => {
-        setFiltersState({
-            ...filtersState,
-            massarPatternType: patternType,
-            massarSubType: patternType === 'صغيرة' ? 'مصار بالنقشة الصغيرة' : 'مصار بالنقشة الكبيرة'
-        });
-    };
-
     const handleMassarSubTypeChange = (subType) => {
         setFiltersState({
             ...filtersState,
-            massarSubType: subType,
-            massarPatternType: subType.includes('صغيرة') ? 'صغيرة' : 'كبيرة'
+            massarSubType: subType
         });
     };
 
@@ -103,46 +80,23 @@ const ShopFiltering = ({ filters, filtersState, setFiltersState, clearFilters })
             {filtersState.category === 'مصار' && (
                 <div className="space-y-4">
                     <div>
-                        <h4 className='font-medium text-lg'>نوع النقشة</h4>
+                        <h4 className='font-medium text-lg'>النوع الفرعي</h4>
                         <hr />
                         <div className="grid grid-cols-1 gap-2 mt-2">
-                            {Object.values(massarTypes).map(({ label, value }) => (
-                                <label key={value} className="flex items-center space-x-3 cursor-pointer">
+                            {massarSubTypes.map((subType) => (
+                                <label key={subType.value} className="flex items-center space-x-3 cursor-pointer">
                                     <input
                                         type="radio"
-                                        name="massarPattern"
-                                        checked={filtersState.massarPatternType === value}
-                                        onChange={() => handleMassarPatternChange(value)}
+                                        name="massarSubType"
+                                        checked={filtersState.massarSubType === subType.value}
+                                        onChange={() => handleMassarSubTypeChange(subType.value)}
                                         className="mr-2"
                                     />
-                                    <span>{label}</span>
+                                    <span>{subType.label}</span>
                                 </label>
                             ))}
                         </div>
                     </div>
-
-                    {filtersState.massarPatternType && (
-                        <div>
-                            <h4 className='font-medium text-lg'>النوع الفرعي</h4>
-                            <hr />
-                            <div className="grid grid-cols-1 gap-2 mt-2">
-                                {massarTypes[
-                                    filtersState.massarPatternType === 'صغيرة' ? 'smallPattern' : 'largePattern'
-                                ].subTypes.map((subType) => (
-                                    <label key={subType.value} className="flex items-center space-x-3 cursor-pointer">
-                                        <input
-                                            type="radio"
-                                            name="massarSubType"
-                                            checked={filtersState.massarSubType === subType.value}
-                                            onChange={() => handleMassarSubTypeChange(subType.value)}
-                                            className="mr-2"
-                                        />
-                                        <span>{subType.label}</span>
-                                    </label>
-                                ))}
-                            </div>
-                        </div>
-                    )}
                 </div>
             )}
 

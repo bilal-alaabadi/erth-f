@@ -5,15 +5,14 @@ import ShopFiltering from './ShopFiltering';
 import { useFetchAllProductsQuery } from '../../redux/features/products/productsApi';
 
 const filters = {
-    categories: ['الكل', 'مصار', 'كمه', 'بوكسات الهدايا', 'عصي', 'أقمشة', 'نظارات', 'ساعات', 'خواتم', 'عطور', 'أحذية', 'محافظ','أطقم'],
+    categories: ['الكل', 'مصار', 'كمه', 'بوكسات الهدايا','أقمشة', 'غتر', 'بوكسات عروض ', 'عود',],
 };
 
 const ShopPage = () => {
     const [searchParams] = useSearchParams();
     const [filtersState, setFiltersState] = useState({
         category: 'الكل',
-        massarPatternType: '',
-        massarSubType: '',
+        massarSubType: '', 
         kumaType: '',
         kumaSize: '',
     });
@@ -27,7 +26,6 @@ const ShopPage = () => {
             setFiltersState(prev => ({ 
                 ...prev, 
                 category: categoryParam,
-                massarPatternType: '',
                 massarSubType: '',
                 kumaType: '',
                 kumaSize: '',
@@ -48,7 +46,6 @@ const ShopPage = () => {
     const clearFilters = () => {
         setFiltersState({
             category: 'الكل',
-            massarPatternType: '',
             massarSubType: '',
             kumaType: '',
             kumaSize: '',
@@ -73,8 +70,7 @@ const ShopPage = () => {
             <section className='section__container bg-[#FAEBD7] '>
                 <h2 className='section__header capitalize'>صفحة المنتجات</h2>
                 <p className='section__subheader' dir='rtl'>
-                    اكتشف أحدث الاختيارات: رفع مستوى أناقتك مع مجموعتنا المختارة من منتجات الموضة الرجالية الأكثر رواجًا.
-                </p>
+اكشف عن إرث الأناقة: رفع مستوى ذوقك مع تشكيلتنا الحصرية من أحدث صيحات الموضة الرجالية العالمية                </p>
             </section>
 
             <section className='section__container pt'>
