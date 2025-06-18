@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import img1 from "../../assets/IMG_5013.jpg";
-import img2 from "../../assets/IMG_2981.png";
+import img2 from "../../assets/IMG_3018.jpg";
 import img3 from "../../assets/pox.png";
 import img4 from "../../assets/IMG_4427.jpg";
 import img5 from "../../assets/IMG_4595.jpg";
