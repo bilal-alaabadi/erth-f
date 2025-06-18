@@ -6,7 +6,6 @@ import img3 from "../../assets/pox.png";
 import img4 from "../../assets/IMG_4427.jpg";
 import img5 from "../../assets/IMG_4595.jpg";
 import img6 from "../../assets/ChatGPT Image Jun 11, 2025, 03_55_47 PM.png";
-import img7 from "../../assets/7.jpeg";
 
 
 const cards = [
