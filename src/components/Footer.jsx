@@ -49,10 +49,10 @@ const Footer = () => {
   <p className="leading-relaxed">
     تم التطوير بواسطة  
     <a
-      href="https://www.royasow.shop/?fbclid=PAZXh0bgNhZW0CMTEAAaYTcIg4_sRbdjE3amvbI83W5Q4NOvdbIjEIaiT4MZ-HXH2O1_MxVVeaoEc_aem_eOjZi6aO7vV9S3ervc71QQ"
+      href="https://mobadeer.com"
       className="hover:text-[#d3ae27]  font-semibold hover:underline mx-1"
     >
-      شركة رؤية
+      شركة مُبادر
     </a>
     بجودة واحترافية
   </p>

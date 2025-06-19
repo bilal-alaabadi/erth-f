@@ -12,20 +12,20 @@ const OrderSummary = ({ onClose }) => {
     };
 
     const createWhatsAppMessage = () => {
-        let message = " الطلب\n\n";
+        let message = "الطلب\n\n";
         
         products.forEach((product) => {
-            message += ` ${product.name}\n`;
-            message += ` الكمية: ${product.quantity}\n`;
+            message += `${product.name}\n`;
+            message += `الكمية: ${product.quantity}\n`;
             message += `السعر: ر.ع ${product.price.toFixed(2)}\n`;
-            message += `الرابط: http://localhost:5173/shop${product.url || `/product/${product._id}`}\n`;
+            message += `الرابط: https://erthe.online${product.url || `/product/${product._id}`}\n`;
             message += `----------------\n`;
         });
         
-        message += `\n *المجموع الكلي*: ر.ع ${totalPrice.toFixed(2)}`;
-        message += `\n *سعر الشحن*: ر.ع ${shippingFee.toFixed(2)}`;
-        message += `\n *المجموع النهائي*: ر.ع ${(totalPrice + shippingFee).toFixed(2)}`;
-        message += "\n\nشكراً لاختياركم! ";
+        message += `\n*المجموع الكلي*: ر.ع ${totalPrice.toFixed(2)}`;
+        message += `\n*سعر الشحن*: ر.ع ${shippingFee.toFixed(2)}`;
+        message += `\n*المجموع النهائي*: ر.ع ${(totalPrice + shippingFee).toFixed(2)}`;
+        message += "\n\nشكراً لاختياركم!";
         
         return message; 
     };
