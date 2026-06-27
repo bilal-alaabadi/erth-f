@@ -1,5 +1,5 @@
 export const getBaseUrl = () => {
-    return 'https://www.erthe.online';//رابط الباك اند بدل 5000
+    return 'https://www.lightoman.com';//رابط الباك اند بدل 5000
 }
 
 // export const getBaseUrl = () => {
